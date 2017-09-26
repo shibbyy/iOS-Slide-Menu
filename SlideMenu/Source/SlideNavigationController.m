@@ -322,7 +322,7 @@ static SlideNavigationController *singletonInstance;
 {
 	return (self.horizontalLocation == 0) ? NO : YES;
 }
-
+/*
 - (void)setEnableShadow:(BOOL)enable
 {
 	_enableShadow = enable;
@@ -342,7 +342,7 @@ static SlideNavigationController *singletonInstance;
 		self.view.layer.shadowRadius = 0;
 	}
 }
-
+*/
 #pragma mark - Override Methods -
 
 - (NSArray *)popToRootViewControllerAnimated:(BOOL)animated
@@ -847,7 +847,7 @@ static SlideNavigationController *singletonInstance;
 	
 	return _panRecognizer;
 }
-
+/*
 - (void)setEnableSwipeGesture:(BOOL)markEnableSwipeGesture
 {
 	_enableSwipeGesture = markEnableSwipeGesture;
@@ -861,7 +861,7 @@ static SlideNavigationController *singletonInstance;
 		[self.view removeGestureRecognizer:self.panRecognizer];
 	}
 }
-
+*/
 - (void)setMenuRevealAnimator:(id<SlideNavigationContorllerAnimator>)menuRevealAnimator
 {
 	[self.menuRevealAnimator clear];
