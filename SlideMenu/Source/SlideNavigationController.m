@@ -138,7 +138,7 @@ static SlideNavigationController *singletonInstance;
     self.delegate = self;
     // When menu open we disable user interaction
     // When rotates we want to make sure that userInteraction is enabled again
-    [self enableTapGestureToCloseMenu:NO];
+    //[self enableTapGestureToCloseMenu:NO]; //Commented this to avoid dismiss issue in iOS 11
     
     if (self.menuNeedsLayout)
     {
