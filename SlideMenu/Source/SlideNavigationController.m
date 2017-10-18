@@ -101,7 +101,6 @@ static SlideNavigationController *singletonInstance;
 	
 	return self;
 }
-
 - (id)initWithNavigationBarClass:(Class)navigationBarClass toolbarClass:(Class)toolbarClass
 {
 	if (self = [super initWithNavigationBarClass:navigationBarClass toolbarClass:toolbarClass])
@@ -111,33 +110,32 @@ static SlideNavigationController *singletonInstance;
 	
 	return self;
 }
-
 - (void)setup
 {
-	if (singletonInstance)
-		NSLog(@"Singleton instance already exists. You can only instantiate one instance of SlideNavigationController. This could cause major issues");
-	
-	singletonInstance = self;
-	
-	self.menuRevealAnimationDuration = MENU_SLIDE_ANIMATION_DURATION;
-	self.menuRevealAnimationOption = MENU_SLIDE_ANIMATION_OPTION;
-	self.landscapeSlideOffset = MENU_DEFAULT_SLIDE_OFFSET;
-	self.portraitSlideOffset = MENU_DEFAULT_SLIDE_OFFSET;
-	self.panGestureSideOffset = 0;
-	self.avoidSwitchingToSameClassViewController = YES;
-	self.enableShadow = YES;
-	self.enableSwipeGesture = YES;
-	self.delegate = self;
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"ssidName"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    if (singletonInstance)
+        NSLog(@"Singleton instance already exists. You can only instantiate one instance of SlideNavigationController. This could cause major issues");
+    
+    singletonInstance = self;
+    
+    self.menuRevealAnimationDuration = MENU_SLIDE_ANIMATION_DURATION;
+    self.menuRevealAnimationOption = MENU_SLIDE_ANIMATION_OPTION;
 }
-
 - (void)viewWillLayoutSubviews
 {
-	[super viewWillLayoutSubviews];
-	
-	// Update shadow size of enabled
-	if (self.enableShadow)
-		self.view.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.view.bounds].CGPath;
+    [super viewWillLayoutSubviews];
     
+    // Update shadow size of enabled
+    if (self.enableShadow)
+        self.view.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.view.bounds].CGPath;
+    self.landscapeSlideOffset = self.view.frame.size.width/6;
+    self.portraitSlideOffset = self.view.frame.size.width/6;
+    self.panGestureSideOffset = 0;
+    self.avoidSwitchingToSameClassViewController = YES;
+    self.enableShadow = YES;
+    self.enableSwipeGesture = NO;
+    self.delegate = self;
     // When menu open we disable user interaction
     // When rotates we want to make sure that userInteraction is enabled again
     [self enableTapGestureToCloseMenu:NO];
@@ -322,7 +320,7 @@ static SlideNavigationController *singletonInstance;
 {
 	return (self.horizontalLocation == 0) ? NO : YES;
 }
-/*
+
 - (void)setEnableShadow:(BOOL)enable
 {
 	_enableShadow = enable;
@@ -342,7 +340,7 @@ static SlideNavigationController *singletonInstance;
 		self.view.layer.shadowRadius = 0;
 	}
 }
-*/
+
 #pragma mark - Override Methods -
 
 - (NSArray *)popToRootViewControllerAnimated:(BOOL)animated
@@ -847,7 +845,7 @@ static SlideNavigationController *singletonInstance;
 	
 	return _panRecognizer;
 }
-/*
+
 - (void)setEnableSwipeGesture:(BOOL)markEnableSwipeGesture
 {
 	_enableSwipeGesture = markEnableSwipeGesture;
@@ -861,7 +859,7 @@ static SlideNavigationController *singletonInstance;
 		[self.view removeGestureRecognizer:self.panRecognizer];
 	}
 }
-*/
+
 - (void)setMenuRevealAnimator:(id<SlideNavigationContorllerAnimator>)menuRevealAnimator
 {
 	[self.menuRevealAnimator clear];
